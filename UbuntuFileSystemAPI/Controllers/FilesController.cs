@@ -8,6 +8,7 @@ namespace UbuntuFileSystemAPI.Controllers
     [ApiController]
     public class FilesController(IFileService fileService) : ControllerBase
     {
+        private readonly IFileService _fileService;
 
         [HttpPost("upload")]
         public async Task<IActionResult> Upload(IFormFile file)
@@ -60,5 +61,28 @@ namespace UbuntuFileSystemAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpDelete("{fileName}")]
+        public IActionResult DeleteFile(string fileName)
+        {
+            try
+            {
+                var result = _fileService.DeleteFile(fileName);
+
+                if (result)
+                {
+                    return Ok(new { Message = "File deleted successfully." });
+                }
+                else
+                {
+                    return NotFound("File not found on the server.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }

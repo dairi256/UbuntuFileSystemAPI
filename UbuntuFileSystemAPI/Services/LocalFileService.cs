@@ -42,5 +42,18 @@ namespace UbuntuFileSystemAPI.Services
             var bytes = await File.ReadAllBytesAsync(path);
             return (bytes, fileName);
         }
+
+        public bool DeleteFile(string fileName)
+        {
+            var filePath = Path.Combine(_storagePath, fileName);
+
+            if (File.Exists(filePath)
+                {
+                File.Delete(filePath);
+                return true;
+            }
+
+            return false;
+        }
     }
 }

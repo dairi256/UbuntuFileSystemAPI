@@ -7,5 +7,7 @@
         IEnumerable<string> ListFiles();
 
         Task<(byte[] bytes, string fileName)> GetFileAsync(string fileName);
+
+        bool DeleteFile(string fileName);
     }
 }
