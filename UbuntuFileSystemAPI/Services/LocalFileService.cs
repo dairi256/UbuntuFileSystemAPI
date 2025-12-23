@@ -1,4 +1,6 @@
-﻿namespace UbuntuFileSystemAPI.Services
+﻿using System.Runtime.CompilerServices;
+
+namespace UbuntuFileSystemAPI.Services
 {
     public class LocalFileService(IConfiguration config) : IFileService
     {
@@ -19,6 +21,26 @@
             await file.CopyToAsync(stream);
 
             return trustedFilename;
+        }
+
+        public IEnumerable<string> ListFiles()
+        {
+            if (!Directory.Exists(_storagePath))
+            {
+                return Enumerable.Empty<string>();
+            }
+            return Directory.GetFiles(_storagePath).Select(Path.GetFileName);
+        }
+
+        public async Task<(byte[] bytes, string fileName)> GetFileAsync(string fileName)
+        {
+            var path = Path.Combine(_storagePath, fileName);
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException("File not found", fileName);
+            }
+            var bytes = await File.ReadAllBytesAsync(path);
+            return (bytes, fileName);
         }
     }
 }

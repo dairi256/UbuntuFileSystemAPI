@@ -28,5 +28,37 @@ namespace UbuntuFileSystemAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("list")]
+        public IActionResult ListFiles()
+        {
+            try
+            {
+                var files = fileService.ListFiles();
+                return Ok(files);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            } // Error just in case something goes wrong
+        }
+
+        [HttpGet("download/{fileName}")]
+        public async Task<IActionResult>Download(string fileName)
+        {
+            try
+            {
+                var (bytes, name) = await fileService.GetFileAsync(fileName);
+                return File(bytes, "application/octet-stream", name);
+            }
+            catch (FileNotFoundException)
+            {
+                return NotFound("File not found");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
