@@ -17,3 +17,5 @@ A cross-management File System API, optimised for deployment on Ubuntu Server
 - `GET /api/Files` - List all file metadata from the database.
 - `GET /api/Files/{fileName}` - Download a file.
 - `DELETE /api/Files/{fileName}` - Remove file from disk and database.
+
+### This repository is licensed under the CC0-1.0 license.
