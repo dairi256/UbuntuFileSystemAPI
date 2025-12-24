@@ -84,5 +84,12 @@ namespace UbuntuFileSystemAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult List()
+        {
+            var files = _fileService.ListFiles();
+            return Ok(files);
+        }
+
     }
 }

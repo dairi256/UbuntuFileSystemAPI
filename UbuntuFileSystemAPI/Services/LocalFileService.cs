@@ -11,7 +11,7 @@ namespace UbuntuFileSystemAPI.Services
 
         public LocalFileService(IConfiguration config, AppDbContext context)
         {
-            _storagePath = config["StoragePath"] ?? "CloudStorage";
+            _storagePath = config["FileStorage:StoragePath"] ?? "uploads";
             _context = context;
 
             if (!Directory.Exists(_storagePath)) Directory.CreateDirectory(_storagePath);
@@ -22,14 +22,13 @@ namespace UbuntuFileSystemAPI.Services
 
             var untrustedFilename = Path.GetFileName(file.FileName);
             var storedFilename = $"{Guid.NewGuid()}_{untrustedFilename}";
+            var fullPath = Path.Combine(_storagePath, storedFilename);
 
             if (!Directory.Exists(_storagePath)) // Important if the directory doesn't exist
             {
                 Directory.CreateDirectory(_storagePath);
             }
 
-            var trustedFilename = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
-            var fullPath = Path.Combine(_storagePath, trustedFilename);
 
             using var stream = new FileStream(fullPath, FileMode.Create);
             await file.CopyToAsync(stream);
@@ -47,13 +46,13 @@ namespace UbuntuFileSystemAPI.Services
             return storedFilename;
         }
 
-        public IEnumerable<string> ListFiles()
+        public IEnumerable<FileRecord> ListFiles()
         {
             if (!Directory.Exists(_storagePath))
             {
-                return Enumerable.Empty<string>();
+                return Enumerable.Empty<FileRecord>();
             }
-            return Directory.GetFiles(_storagePath).Select(Path.GetFileName);
+            return _context.Files.OrderByDescending(f => f.UploadDate).ToList();
         }
 
         public async Task<(byte[] bytes, string fileName)> GetFileAsync(string fileName)
