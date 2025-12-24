@@ -30,6 +30,11 @@ namespace UbuntuFileSystemAPI
 
             app.MapControllers();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.Migrate();
+            } // Creates the database on the Ubuntu system if it doesn't exist
             app.Run();
         }
     }
