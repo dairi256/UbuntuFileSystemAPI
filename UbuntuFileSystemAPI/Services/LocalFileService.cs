@@ -47,7 +47,7 @@ namespace UbuntuFileSystemAPI.Services
         {
             var filePath = Path.Combine(_storagePath, fileName);
 
-            if (File.Exists(filePath)
+            if (File.Exists(filePath))
                 {
                 File.Delete(filePath);
                 return true;
