@@ -10,7 +10,19 @@ A cross-management File System API, optimised for deployment on Ubuntu Server
 - **Console UI:** A clean console interface for easier access.
 
 ## Installation and Setup
-(To be added on release.)
+1. **Download the linux .zip:** Download the linux-64.zip and connect to your server and send it to your machine using SCP.
+2. **Unzip the files:** Before you unzip, please ensure that you have:
+- Installed the `unzip` utility by typing this comamnd: `sudo apt update` and `sudo apt install unzip`,
+- Please unzip the file in another folder, use `mkdir ~/DIRECTORY_NAME` to create a new folder,
+- Then, you can use this command to unzip all contents: `unzip .zip_NAME -d ~/DIRECTORY_NAME`.
+3. **Enter the directory:** In the directory, enter this command to ensure that the 'UbuntuFileSystemAPI' file is allowed to be run: `chmod +x UbuntuFileSystemAPI`/.
+4.**Setup the storage folder:** These two commands create the folder in which files will be stored and your user has permission to use it:
+- `sudo mkdir -p /var/www/uploads`
+- `sudo chown -R $USER:$USER /var/www/uploads`
+5. **Start the file:** To finally run the file, please use this command:
+- `FileStorage__StoragePath=/var/www/uploads ConnectionStrings__DefaultConnection="Data Source=cloudstorage.db" ./UbuntuFileSystemAPI --urls "http://0.0.0.0:5000"`
+
+**You can now open up a browser on your PC and head to `http://ipaddress:5000/swagger`**
 
 ## API Endpoints
 - `POST /api/Files/upload` - Upload a new file.
