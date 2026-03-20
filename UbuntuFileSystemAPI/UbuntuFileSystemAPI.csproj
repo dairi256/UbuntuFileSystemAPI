@@ -20,6 +20,7 @@
     </PackageReference>
     <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="1.3.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Spectre.Console" Version="0.54.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
     <PackageReference Include="UploadStream" Version="3.1.1" />
   </ItemGroup>
