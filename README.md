@@ -8,6 +8,7 @@ A cross-management File System API, optimised for deployment on Ubuntu Server
 ## Planned Features
 - **Linux Commands:** For example, typing a linux command will download the file on the server.
 - **Console UI:** A clean console interface for easier access.
+- **Downloading Multiple Files at Once**: Instead of having to input commands for downloading something each time, this will make downloading multiple files way easier.
 
 ## Installation and Setup
 1. **Download the linux .zip:** Download the linux-64.zip and connect to your server and send it to your machine using SCP.
