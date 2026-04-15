@@ -23,6 +23,8 @@
     <PackageReference Include="Spectre.Console" Version="0.54.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
     <PackageReference Include="UploadStream" Version="3.1.1" />
+	<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.0" />
+	<PackageReference Include="Micosoft.IdentityModel.Tokens" Version="8.3.0" />
   </ItemGroup>
 
 </Project>
